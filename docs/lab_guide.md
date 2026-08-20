@@ -113,5 +113,17 @@ Cách khắc phục (chọn 1 trong 3):
 
 Mỗi nhóm trả lời 2 câu:
 
-1. Case nào nên dùng multi-agent? Vì sao?
-2. Case nào không nên dùng multi-agent? Vì sao?
+1. **Case nào nên dùng multi-agent? Vì sao?**
+   - **Khi nào nên dùng:**
+     - Các tác vụ nghiên cứu sâu, phức tạp (Deep Research, Fact-Checking) đòi hỏi nhiều giai đoạn tách biệt: tìm kiếm thông tin bên ngoài -> lọc và đối chiếu dữ liệu -> viết báo cáo tổng hợp.
+     - Các hệ thống cần kiểm toán (Auditability) và debug từng khâu trung gian minh bạch thay vì một hộp đen (black box).
+     - Tác vụ cần kết hợp nhiều công cụ hoặc role chuyên biệt (ví dụ: Researcher dùng Search API, Analyst đánh giá logic, Critic kiểm tra trích dẫn).
+   - **Vì sao:** Phân chia trách nhiệm (Separation of Concerns) giúp giảm hiện tượng ảo giác (hallucination), tận dụng tối đa context window hiệu quả cho từng role và nâng cao độ chính xác của câu trả lời.
+
+2. **Case nào không nên dùng multi-agent? Vì sao?**
+   - **Khi nào không nên dùng:**
+     - Các truy vấn đơn giản, câu hỏi tra cứu thông tin trực tiếp (Q&A cơ bản, dịch thuật, tóm tắt văn bản ngắn).
+     - Các ứng dụng yêu cầu thời gian phản hồi cực nhanh (Real-time latency < 2s).
+     - Các hệ thống bị giới hạn nghiêm ngặt về ngân sách / chi phí Token API.
+   - **Vì sao:** Multi-agent làm tăng độ trễ (latency cao gấp 2-3 lần) và chi phí token do phải luân chuyển shared state qua nhiều agent và supervisor. Với các tác vụ đơn giản, single-agent với zero-shot / few-shot prompting vừa nhanh, vừa tiết kiệm và đã đủ đáp ứng yêu cầu.
+
